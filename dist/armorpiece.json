@@ -1,0 +1,24 @@
+{
+  "Mafumofu Hood": {
+    "name": "Mafumofu Hood",
+    "rarity": 1,
+    "part": "Head",
+    "class": "Both",
+    "gender": "Both",
+    "defense": 1,
+    "fireRes": 0,
+    "waterRes": 0,
+    "thunderRes": 0,
+    "iceRes": 3,
+    "dragonRes": 0,
+    "nbSlots": 0,
+    "skills": {
+      "Cold Res": 4,
+      "Protection": 2,
+      "Heat Res": -2,
+      "PsychicVis": 3},
+    "cost": 50,
+    "materials": {
+      "Anteka Pelt": 1}
+  }
+}

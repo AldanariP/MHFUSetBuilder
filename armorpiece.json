@@ -1,0 +1,122 @@
+{
+  "Mafumofu Hood": {
+    "name": "Mafumofu Hood",
+    "rarity": 1,
+    "part": "Head",
+    "class": "Both",
+    "gender": "Both",
+    "defense": 1,
+    "fireRes": 0,
+    "waterRes": 0,
+    "thunderRes": 0,
+    "iceRes": 3,
+    "dragonRes": 0,
+    "nbSlots": 0,
+    "skills": {
+      "Cold Res": 4,
+      "Protection": 2,
+      "Heat Res": -2,
+      "PsychicVis": 3
+    },
+    "cost": 50,
+    "materials": {
+      "Anteka Pelt": 1
+    }
+  },
+  "Mafumofu Jacket": {
+    "name": "Mafumofu jacket",
+    "rarity": 1,
+    "part": "Torso",
+    "class": "Both",
+    "gender": "Both",
+    "defense": 1,
+    "fireRes": 0,
+    "waterRes": 0,
+    "thunderRes": 0,
+    "iceRes": 3,
+    "dragonRes": 0,
+    "nbSlots": 0,
+    "skills": {
+      "Cold Res": 4,
+      "Protection": 2,
+      "Heat Res": -2,
+      "Ice Res": 1
+    },
+    "cost": 50,
+    "materials": {
+      "Anteka Pelt": 1
+    }
+  },
+  "Mafumofu Mittens": {
+    "name": "Mafumofu Mittens",
+    "rarity": 1,
+    "part": "Arm",
+    "class": "Both",
+    "gender": "Both",
+    "defense": 1,
+    "fireRes": 0,
+    "waterRes": 0,
+    "thunderRes": 0,
+    "iceRes": 3,
+    "dragonRes": 0,
+    "nbSlots": 1,
+    "skills": {
+      "Cold Res": 4,
+      "Protection": 2,
+      "Heat Res": -2,
+      "Snow res": 1
+    },
+    "cost": 50,
+    "materials": {
+      "Anteka Pelt": 1
+    }
+  },
+  "Mafumofu Coat": {
+    "name": "Mafumofu Coat",
+    "rarity": 1,
+    "part": "Waist",
+    "class": "Both",
+    "gender": "Both",
+    "defense": 1,
+    "fireRes": 0,
+    "waterRes": 0,
+    "thunderRes": 0,
+    "iceRes": 3,
+    "dragonRes": 0,
+    "nbSlots": 1,
+    "skills": {
+      "Cold Res": 4,
+      "Protection": 2,
+      "Heat Res": -2,
+      "Map": 1
+    },
+    "cost": 50,
+    "materials": {
+      "Anteka Pelt": 1
+    }
+  },
+  "Mafumofu Boots": {
+    "name": "Mafumofu Boots",
+    "rarity": 1,
+    "part": "Leg",
+    "class": "Both",
+    "gender": "Both",
+    "defense": 1,
+    "fireRes": 0,
+    "waterRes": 0,
+    "thunderRes": 0,
+    "iceRes": 3,
+    "dragonRes": 0,
+    "nbSlots": 1,
+    "skills": {
+      "Cold Res": 4,
+      "Protection": 2,
+      "Heat Res": -2,
+      "Ice Res": 1
+    },
+    "cost": 50,
+    "materials": {
+      "Anteka Pelt": 1
+    }
+  }
+}
