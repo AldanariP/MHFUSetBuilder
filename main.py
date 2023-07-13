@@ -1,7 +1,6 @@
 import json
 from ArmorPiece import ArmorPiece
 from ArmorSet import ArmorSet
-import tkinter as tk
 
 try:
     with open('armorpiece.json', 'r') as file:
