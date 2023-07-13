@@ -2,6 +2,7 @@ import json
 from ArmorPiece import ArmorPiece
 from ArmorSet import ArmorSet
 
+
 try:
     with open('armorpiece.json', 'r') as file:
         data = json.load(file)
