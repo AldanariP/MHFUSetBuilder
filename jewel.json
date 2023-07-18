@@ -1,0 +1,43 @@
+{
+  "PickyEater Jewel": {
+    "name": "PickyEater Jewel",
+    "skill": {
+      "Hunger": 2,
+      "Cooking": -1
+    },
+    "material": {
+      "Suiko Jewel": 1,
+      "Cephalos Scale": 1,
+      "Well-Done Steak": 2
+    },
+    "slot": 1,
+    "cost": 200
+  },
+  "Hot Wind Jewel": {
+    "name": "Hot Wind Jewel",
+    "skill": {
+      "Cold Res": 3,
+      "Heat Res": -1
+    },
+    "material": {
+      "Akito Jewel": 1,
+      "Cephalos Fin": 1,
+      "Nitroshroom": 4
+    },
+    "slot": 2,
+    "cost": 375
+  },
+  "WarmBreeze Jewel": {
+    "name": "WarmBreeze Jewel",
+    "skill": {
+      "Cold Res": 1,
+      "Heat Res": -1
+    },
+    "material": {
+      "Suiko Jewel": 1,
+      "Cephalos Scale": 2
+    },
+    "slot": 1,
+    "cost": 200
+  }
+}

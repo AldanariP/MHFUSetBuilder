@@ -146,10 +146,17 @@ class ArmorSet:
         skillList = {}
         for armorPiece in self.__armorSet.values():
             for skill, amount in armorPiece.skills().items():
-                if skill in skillList.keys():
-                    skillList[skill] += amount
+                if skill == "Torso Inc.":
+                    for torsoskill, torsoamount in self.__armorSet["Torso"].skills().items():
+                        if torsoskill in skillList.keys():
+                            skillList[torsoskill] += torsoamount
+                        else:
+                            skillList[torsoskill] = torsoamount
                 else:
-                    skillList[skill] = amount
+                    if skill in skillList.keys():
+                        skillList[skill] += amount
+                    else:
+                        skillList[skill] = amount
         return skillList
 
     def resTable(self):

@@ -21,6 +21,8 @@ class ArmorPiece:
             self.__iceRes = piece['iceRes']
             self.__dragonRes = piece['dragonRes']
             self.__nbSlots = piece['nbSlots']
+            self.__freeSlots = self.__nbSlots
+            self.__jewels = []
             self.__skills = piece['skills']
             self.__cost = piece['cost']
             self.__materials = piece['materials']
@@ -57,6 +59,12 @@ class ArmorPiece:
     def nbSolt(self):
         return self.__nbSlots
 
+    def freeSlot(self):
+        return self.__freeSlots
+
+    def jewels(self):
+        return self.__jewels
+
     def skills(self):
         return self.__skills
 
@@ -80,6 +88,32 @@ class ArmorPiece:
         else:
             return "G"
 
+    def attachJewel(self, jewel):
+        if jewel.slots() <= self.__freeSlots:
+            for skill, amount in jewel.skills().items():
+                if skill in self.__skills.keys():
+                    self.__skills[skill] += amount
+                else:
+                    self.__skills[skill] = amount
+            self.__jewels.append(jewel)
+            self.__freeSlots -= jewel.slots()
+            return True
+        else:
+            return False
+
+    def detachJewel(self, jewel):
+        if jewel.name() in self.__jewels:
+            for skill, amount in jewel.skills().items():
+                if self.__skills[skill] > jewel.skills()[skill]:
+                    self.__skills[skill] -= jewel.skills()[skill]
+                else:
+                    self.__skills.pop(skill)
+            self.__jewels.pop(jewel)
+            self.__freeSlots += jewel.slots()
+            return True
+        else:
+            return False
+
     def __str__(self):
         result = (
             f"Name               : {self.__name}\n"
@@ -92,7 +126,8 @@ class ArmorPiece:
             f"Thunder Resistance : {self.__thunderRes}\n"
             f"Ice Resistance     : {self.__iceRes}\n"
             f"Dragon Restistance : {self.__dragonRes}\n"
-            f"Slots Available    : {self.__nbSlots}\n"
+            f"Base Slots         : {self.__nbSlots}\n"
+            f"Slots Available    : {self.__freeSlots}\n"
             f"Cost               : {self.__cost}z\n"
             f"Skills :\n"
         )
@@ -112,5 +147,10 @@ class ArmorPiece:
         for material, value in self.__materials.items():
             key = f"{material}".ljust(max_key_width)
             result += f"    {key} : {value}\n"
+
+        if self.__jewels:
+            result += f"Jewel :\n"
+            for jewel in self.__jewels:
+                result += f"   -{jewel.name()} : {jewel.skills()}"
 
         return result
