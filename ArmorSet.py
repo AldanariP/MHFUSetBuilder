@@ -24,6 +24,10 @@ class ArmorSet:
                            "Leg": Optional[ArmorPiece]}
         self.__setClass = None
         self.__setGender = None
+        self.__weaponSlot = 0
+        self.__FreeWeaponSlot = 0
+        self.__weaponSkill = {}
+        self.__weaponJewels  = []
 
     def pieces(self):
         return self.__armorSet
@@ -120,6 +124,37 @@ class ArmorSet:
                 self.setWaist(i)
             if i.armor_class() == Part.LEG:
                 self.setLeg(i)
+
+    def setWeaponSlot(self, amount: int):
+        self.__WeaponSlot, self.__FreeWeaponSlot == amount, amount
+
+
+    def attachJeweltoWeapon(self, jewel: Jewel):
+        if jewel.slots() <= self.__FreeWeaponSlot:
+            for skill, amount in jewel.skills().items():
+                if skill in self.__weaponSkill.keys():
+                    self.__weaponSkill[skill] += amount
+                else:
+                    self.__weaponSkill[skill] = amount
+            self.__weaponJewels.append(jewel)
+            self.__FreeWeaponSlot -= jewel.slots()
+            return True
+        else:
+            return False
+
+    def detachJeweltoWeapon(self, jewel: Jewel):
+        if jewel.name() in self.__weaponJewels:
+            for skill, amount in jewel.skills().items():
+                if self.__weaponSkill[skill] > jewel.skills()[skill]:
+                    self.__weaponSkill[skill] -= jewel.skills()[skill]
+                else:
+                    self.__weaponSkill.pop(skill)
+            self.__weaponJewels.remove(jewel)
+            self.__weaponSlot += jewel.slots()
+            return True
+        else:
+            return False
+
 
     def resetHead(self):
         self.__armorSet["Head"] = Optional[ArmorPiece]

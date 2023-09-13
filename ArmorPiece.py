@@ -1,7 +1,8 @@
-import ArmorClass
-import Gender
-import Parts
-import Rarity
+from ArmorClass import ArmorClass
+from Gender import Gender
+from Parts import Part
+from Rarity import Rarity
+from Jewel import Jewel
 
 
 class ArmorPiece:
@@ -10,10 +11,10 @@ class ArmorPiece:
         try:
             piece = data[name]
             self.__name = piece['name']
-            self.__rarity = Rarity.Rarity(piece['rarity']).rarity()
-            self.__part = Parts.Part(piece['part'])
-            self.__armor_class = ArmorClass.ArmorClass(piece['class'])
-            self.__gender = Gender.Gender(piece['gender'])
+            self.__rarity = Rarity(piece['rarity']).rarity()
+            self.__part = Part(piece['part'])
+            self.__armor_class = ArmorClass(piece['class'])
+            self.__gender = Gender(piece['gender'])
             self.__defense = piece['defense']
             self.__fireRes = piece['fireRes']
             self.__waterRes = piece['waterRes']
@@ -88,7 +89,7 @@ class ArmorPiece:
         else:
             return "G"
 
-    def attachJewel(self, jewel):
+    def attachJewel(self, jewel: Jewel):
         if jewel.slots() <= self.__freeSlots:
             for skill, amount in jewel.skills().items():
                 if skill in self.__skills.keys():
@@ -101,14 +102,14 @@ class ArmorPiece:
         else:
             return False
 
-    def detachJewel(self, jewel):
+    def detachJewel(self, jewel: Jewel):
         if jewel.name() in self.__jewels:
             for skill, amount in jewel.skills().items():
                 if self.__skills[skill] > jewel.skills()[skill]:
                     self.__skills[skill] -= jewel.skills()[skill]
                 else:
                     self.__skills.pop(skill)
-            self.__jewels.pop(jewel)
+            self.__jewels.remove(jewel)
             self.__freeSlots += jewel.slots()
             return True
         else:
