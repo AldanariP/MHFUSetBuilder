@@ -1,11 +1,11 @@
 class Rarity:
     def __init__(self, rarity: int):
-        if rarity <= 0:
+        if rarity < 1:
             raise ValueError(f"The Rarity must be at least 1, got : '{rarity}'")
-        elif rarity > 10:
+        elif rarity > 9:
             raise ValueError(f"The Rarity must be at most 9, got : '{rarity}'")
         else:
             self.__rarity = rarity
 
-    def rarity(self):
+    def rarity(self) -> int:
         return self.__rarity

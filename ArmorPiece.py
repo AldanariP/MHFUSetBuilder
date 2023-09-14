@@ -27,61 +27,61 @@ class ArmorPiece:
             self.__skills = piece['skills']
             self.__cost = piece['cost']
             self.__materials = piece['materials']
-        except KeyError as e:
+        except KeyError as _:
             print(f"Error: '{name}' is not a valid armor piece name.")
 
-    def name(self):
+    def name(self) -> str:
         return self.__name
 
-    def rarity(self):
+    def rarity(self) -> str:
         return self.__rarity
 
-    def part(self):
+    def part(self) -> Part:
         return self.__part
 
-    def defense(self):
+    def defense(self) -> int:
         return self.__defense
 
-    def fireRes(self):
+    def fireRes(self) -> int:
         return self.__fireRes
 
-    def waterRes(self):
+    def waterRes(self) -> int:
         return self.__waterRes
 
-    def thunderRes(self):
+    def thunderRes(self) -> int:
         return self.__thunderRes
 
-    def iceRes(self):
+    def iceRes(self) -> int:
         return self.__iceRes
 
-    def dragonRes(self):
+    def dragonRes(self) -> int:
         return self.__dragonRes
 
-    def nbSolt(self):
+    def nbSolt(self) -> int:
         return self.__nbSlots
 
-    def freeSlot(self):
+    def freeSlot(self) -> int:
         return self.__freeSlots
 
-    def jewels(self):
+    def jewels(self) -> list[Jewel]:
         return self.__jewels
 
-    def skills(self):
+    def skills(self) -> dict[str, int]:
         return self.__skills
 
-    def armor_class(self):
+    def armor_class(self) -> ArmorClass:
         return self.__armor_class
 
-    def gender(self):
+    def gender(self) -> Gender:
         return self.__gender
 
-    def cost(self):
+    def cost(self) -> int:
         return self.__cost
 
-    def materials(self):
+    def materials(self) -> dict[str, int]:
         return self.__materials
 
-    def rank(self):
+    def rank(self) -> str:
         if self.__rarity <= 3:
             return "low"
         elif self.__rarity <= 8:
@@ -89,7 +89,7 @@ class ArmorPiece:
         else:
             return "G"
 
-    def attachJewel(self, jewel: Jewel):
+    def attachJewel(self, jewel: Jewel) -> bool:
         if jewel.slots() <= self.__freeSlots:
             for skill, amount in jewel.skills().items():
                 if skill in self.__skills.keys():
@@ -102,7 +102,7 @@ class ArmorPiece:
         else:
             return False
 
-    def detachJewel(self, jewel: Jewel):
+    def detachJewel(self, jewel: Jewel) -> bool:
         if jewel.name() in self.__jewels:
             for skill, amount in jewel.skills().items():
                 if self.__skills[skill] > jewel.skills()[skill]:
@@ -115,7 +115,7 @@ class ArmorPiece:
         else:
             return False
 
-    def __str__(self):
+    def __str__(self) -> str:
         result = (
             f"Name               : {self.__name}\n"
             f"Rarity             : {self.__rarity}\n"

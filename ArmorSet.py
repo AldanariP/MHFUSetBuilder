@@ -129,7 +129,7 @@ class ArmorSet:
         self.__WeaponSlot, self.__FreeWeaponSlot == amount, amount
 
 
-    def attachJeweltoWeapon(self, jewel: Jewel):
+    def attachJeweltoWeapon(self, jewel: Jewel) -> bool:
         if jewel.slots() <= self.__FreeWeaponSlot:
             for skill, amount in jewel.skills().items():
                 if skill in self.__weaponSkill.keys():
@@ -142,7 +142,7 @@ class ArmorSet:
         else:
             return False
 
-    def detachJeweltoWeapon(self, jewel: Jewel):
+    def detachJeweltoWeapon(self, jewel: Jewel) -> bool:
         if jewel.name() in self.__weaponJewels:
             for skill, amount in jewel.skills().items():
                 if self.__weaponSkill[skill] > jewel.skills()[skill]:
@@ -177,7 +177,7 @@ class ArmorSet:
     def setGender(self):
         return self.__setGender
 
-    def skillTable(self):
+    def skillTable(self) -> dict[str, int]:
         skillList = {}
         for armorPiece in self.__armorSet.values():
             for skill, amount in armorPiece.skills().items():
@@ -194,7 +194,7 @@ class ArmorSet:
                         skillList[skill] = amount
         return skillList
 
-    def resTable(self):
+    def resTable(self) -> dict[str, int]:
         resList = {"def": 0,
                    "fire": 0,
                    "water": 0,
@@ -210,13 +210,13 @@ class ArmorSet:
             resList["dragon"] += armorPiece.dragonRes()
         return resList
 
-    def totalCost(self):
+    def totalCost(self) -> int:
         cost = 0
         for armorPiece in self.__armorSet.values():
             cost += armorPiece.cost()
         return cost
 
-    def materialList(self):
+    def materialList(self) -> dict[str, int]:
         materials = {}
         for armorPiece in self.__armorSet.values():
             for material, amount in armorPiece.materials().items():
