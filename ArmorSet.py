@@ -5,7 +5,6 @@ from typing import Optional
 from collections import Counter, defaultdict
 
 
-
 def genderWaring(armorPiece, armorSet):
     return (f"ArmorPiece '{armorPiece.name()}' of gender '{armorPiece.gender().value}' "
             f"is not compatible with the set gender '{armorSet.setGender()}'")
@@ -25,10 +24,10 @@ class ArmorSet:
                            "Leg": Optional[ArmorPiece]}
         self.__setClass = None
         self.__setGender = None
-        self.__weaponSlot = 0
+        self.__WeaponSlot = 0
         self.__FreeWeaponSlot = 0
-        self.__weaponSkill = {}
-        self.__weaponJewels  = []
+        self.__WeaponSkill = {}
+        self.__weaponJewels = []
 
     def pieces(self):
         return self.__armorSet
@@ -127,16 +126,15 @@ class ArmorSet:
                 self.setLeg(i)
 
     def setWeaponSlot(self, amount: int):
-        self.__WeaponSlot, self.__FreeWeaponSlot == amount, amount
-
+        self.__WeaponSlot, self.__FreeWeaponSlot = amount, amount
 
     def attachJeweltoWeapon(self, jewel: Jewel) -> bool:
         if jewel.slots() <= self.__FreeWeaponSlot:
             for skill, amount in jewel.skills().items():
-                if skill in self.__weaponSkill.keys():
-                    self.__weaponSkill[skill] += amount
+                if skill in self.__WeaponSkill.keys():
+                    self.__WeaponSkill[skill] += amount
                 else:
-                    self.__weaponSkill[skill] = amount
+                    self.__WeaponSkill[skill] = amount
             self.__weaponJewels.append(jewel)
             self.__FreeWeaponSlot -= jewel.slots()
             return True
@@ -146,16 +144,15 @@ class ArmorSet:
     def detachJeweltoWeapon(self, jewel: Jewel) -> bool:
         if jewel.name() in self.__weaponJewels:
             for skill, amount in jewel.skills().items():
-                if self.__weaponSkill[skill] > jewel.skills()[skill]:
-                    self.__weaponSkill[skill] -= jewel.skills()[skill]
+                if self.__WeaponSkill[skill] > jewel.skills()[skill]:
+                    self.__WeaponSkill[skill] -= jewel.skills()[skill]
                 else:
-                    self.__weaponSkill.pop(skill)
+                    self.__WeaponSkill.pop(skill)
             self.__weaponJewels.remove(jewel)
-            self.__weaponSlot += jewel.slots()
+            self.__WeaponSlot += jewel.slots()
             return True
         else:
             return False
-
 
     def resetHead(self):
         self.__armorSet["Head"] = Optional[ArmorPiece]
@@ -186,13 +183,12 @@ class ArmorSet:
                     for torsoskill, torsoamount in self.__armorSet["Torso"].skills().items():
                         skillList[torsoskill] += torsoamount
                 skillList[skill] += amount
-        return dict(sorted(skillList.items(), key=lambda x:x[1], reverse=True))
-
+        return dict(sorted(skillList.items(), key=lambda x: x[1], reverse=True))
 
     def skilltable(self) -> list:
         skillTable = [("Skill", "Actif", "Head", "Torso", "Arm", "Waist", "Leg", "Total")]
         skillTotal = self.skillTableTotal()
-        activeSkill = [] # TODO create a list of all the active skills IN ORDER with the Talent object (isActif func)
+        activeSkill = []  # TODO create a list of all the active skills IN ORDER with the Talent object (isActif func)
         for skill in skillTotal.keys():
             if activeSkill:
                 row = (skill, activeSkill.pop(0),)
@@ -241,4 +237,3 @@ class ArmorSet:
                 else:
                     materials[material] = amount
         return materials
-
