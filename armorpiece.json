@@ -61,10 +61,7 @@
     "dragonRes": 0,
     "nbSlots": 1,
     "skills": {
-      "Cold Res": 4,
-      "Protection": 2,
-      "Heat Res": -2,
-      "Snow res": 1
+      "Torso Inc.": 1
     },
     "cost": 50,
     "materials": {

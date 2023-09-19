@@ -2,7 +2,8 @@ from ArmorPiece import *
 from Parts import *
 from Gender import *
 from typing import Optional
-from collections import Counter
+from collections import Counter, defaultdict
+
 
 
 def genderWaring(armorPiece, armorSet):
@@ -177,24 +178,39 @@ class ArmorSet:
     def setGender(self):
         return self.__setGender
 
-    def skillTable(self) -> dict[str, int]:
-        skillList = {}
+    def skillTableTotal(self) -> dict[str, int]:
+        skillList = defaultdict(int)
         for armorPiece in self.__armorSet.values():
             for skill, amount in armorPiece.skills().items():
                 if skill == "Torso Inc.":
                     for torsoskill, torsoamount in self.__armorSet["Torso"].skills().items():
-                        if torsoskill in skillList.keys():
-                            skillList[torsoskill] += torsoamount
-                        else:
-                            skillList[torsoskill] = torsoamount
-                else:
-                    if skill in skillList.keys():
-                        skillList[skill] += amount
-                    else:
-                        skillList[skill] = amount
-        return skillList
+                        skillList[torsoskill] += torsoamount
+                skillList[skill] += amount
+        return dict(sorted(skillList.items(), key=lambda x:x[1], reverse=True))
 
-    def resTable(self) -> dict[str, int]:
+
+    def skilltable(self) -> list:
+        skillTable = [("Skill", "Actif", "Head", "Torso", "Arm", "Waist", "Leg", "Total")]
+        skillTotal = self.skillTableTotal()
+        activeSkill = [] # TODO create a list of all the active skills IN ORDER with the Talent object (isActif func)
+        for skill in skillTotal.keys():
+            if activeSkill:
+                row = (skill, activeSkill.pop(0),)
+            else:
+                row = (skill, '',)
+            for armorPiece in self.__armorSet.values():
+                if armorPiece is None or armorPiece.getSkillAmount(skill) is None:
+                    row += ('',)
+                else:
+                    if skillTotal.get("Torso Inc.") is not None and armorPiece.isTorso():
+                        row += (armorPiece.getSkillAmount(skill),) * skillTotal.get("Torso Inc.")
+                    else:
+                        row += (armorPiece.getSkillAmount(skill),)
+            row += (skillTotal[skill],)
+            skillTable.append(row)
+        return skillTable
+
+    def resTableTotal(self) -> dict[str, int]:
         resList = {"def": 0,
                    "fire": 0,
                    "water": 0,
@@ -225,3 +241,4 @@ class ArmorSet:
                 else:
                     materials[material] = amount
         return materials
+

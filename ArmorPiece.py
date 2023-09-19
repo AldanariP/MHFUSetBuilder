@@ -33,7 +33,7 @@ class ArmorPiece:
     def name(self) -> str:
         return self.__name
 
-    def rarity(self) -> str:
+    def rarity(self) -> int:
         return self.__rarity
 
     def part(self) -> Part:
@@ -81,6 +81,21 @@ class ArmorPiece:
     def materials(self) -> dict[str, int]:
         return self.__materials
 
+    def isHead(self) -> bool:
+        return self.__part == Part.HEAD
+
+    def isTorso(self) -> bool:
+        return self.__part == Part.TORSO
+
+    def isArm(self) -> bool:
+        return self.__part == Part.ARM
+
+    def isWaist(self) -> bool:
+        return self.__part == Part.WAIST
+
+    def isLeg(self) -> bool:
+        return self.__part == Part.LEG
+
     def rank(self) -> str:
         if self.__rarity <= 3:
             return "low"
@@ -88,6 +103,9 @@ class ArmorPiece:
             return "high"
         else:
             return "G"
+
+    def getSkillAmount(self, skill) -> str:
+        return self.__skills.get(skill)
 
     def attachJewel(self, jewel: Jewel) -> bool:
         if jewel.slots() <= self.__freeSlots:

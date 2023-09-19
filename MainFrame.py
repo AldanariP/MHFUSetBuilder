@@ -16,7 +16,7 @@ class AppTabView(customtkinter.CTkTabview):
         self.tab("Overview").grid_rowconfigure(0, weight=1)
 
 
-class MainFrame(customtkinter.CTkFrame):
+class OverviewMainFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
@@ -27,26 +27,44 @@ class MainFrame(customtkinter.CTkFrame):
         self.grid_rowconfigure(1, weight=1)
 
 
+class SkillTable:
+    def __init__(self, root, data):
+        skillMaxLenght = max([len(j) for j in [i[0] for i in data]])
+        active_Skill_Max_Lenght = max([len(j) for j in [i[1] for i in data]])
+
+
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
 
-        self.title("my app")
+        self.title("MHFU Set Builder")
         self.geometry("1000x562")
         self.minsize(480, 180)
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
         self.tabview = AppTabView(master=self)
-        self.mainframe = MainFrame(master=self.tabview.tab("Overview"))
+        self.overviewMainframe = OverviewMainFrame(master=self.tabview.tab("Overview"))
 
-        self.defgrid = customtkinter.CTkFrame(master=self.mainframe, border_color="blue", border_width=10)
+        self.skillgrid = customtkinter.CTkFrame(master=self.overviewMainframe, border_color="red", border_width=10)
+        self.skillgrid.grid(row=0, column=0, sticky="nsew")
+
+        self.miscgrid = customtkinter.CTkFrame(master=self.overviewMainframe)
+        self.miscgrid.grid(row=1, column=0, sticky="nsew")
+        self.miscgrid.grid_columnconfigure(0, weight=1)
+        self.miscgrid.grid_columnconfigure(1, weight=1)
+        self.miscgrid.grid_rowconfigure(0, weight=1)
+
+        self.defgrid = customtkinter.CTkFrame(master=self.miscgrid, border_color="darkblue", border_width=5)
         self.defgrid.grid(row=0, column=0, sticky="nsew")
-        self.skillgrid = customtkinter.CTkFrame(master=self.mainframe, border_color="red", border_width=10)
-        self.skillgrid.grid(row=1, column=0, sticky="nsew")
-        self.piecelist = customtkinter.CTkFrame(master=self.mainframe, border_color="black", border_width=10)
+
+        self.objectgrid = customtkinter.CTkFrame(master=self.miscgrid, border_color="lightblue", border_width=5)
+        self.objectgrid.grid(row=0, column=1, sticky="nsew")
+
+        self.piecelist = customtkinter.CTkFrame(master=self.overviewMainframe, border_color="black", border_width=10)
         self.piecelist.grid(row=0, column=1, rowspan=2, sticky="nsew")
 
 
-app = App()
-app.mainloop()
+if __name__ == '__main__':
+    app = App()
+    app.mainloop()
