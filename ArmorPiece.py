@@ -3,6 +3,7 @@ from Gender import Gender
 from Parts import Part
 from Rarity import Rarity
 from Jewel import Jewel
+from collections import defaultdict
 
 
 class ArmorPiece:
@@ -24,7 +25,8 @@ class ArmorPiece:
             self.__nbSlots = piece['nbSlots']
             self.__freeSlots = self.__nbSlots
             self.__jewels = []
-            self.__skills = piece['skills']
+            self.__skills = defaultdict(int)
+            self.__skills.update(piece['skills'])
             self.__cost = piece['cost']
             self.__materials = piece['materials']
         except KeyError as _:
@@ -104,16 +106,13 @@ class ArmorPiece:
         else:
             return "G"
 
-    def getSkillAmount(self, skill) -> str:
+    def getSkillAmount(self, skill) -> int | None:
         return self.__skills.get(skill)
 
     def attachJewel(self, jewel: Jewel) -> bool:
         if jewel.slots() <= self.__freeSlots:
             for skill, amount in jewel.skills().items():
-                if skill in self.__skills.keys():
-                    self.__skills[skill] += amount
-                else:
-                    self.__skills[skill] = amount
+                self.__skills[skill] += amount
             self.__jewels.append(jewel)
             self.__freeSlots -= jewel.slots()
             return True
@@ -121,12 +120,13 @@ class ArmorPiece:
             return False
 
     def detachJewel(self, jewel: Jewel) -> bool:
-        if jewel.name() in self.__jewels:
-            for skill, amount in jewel.skills().items():
-                if self.__skills[skill] > jewel.skills()[skill]:
-                    self.__skills[skill] -= jewel.skills()[skill]
+        jSkill = jewel.skills()
+        if jewel.name() in [j.name() for j in self.__jewels]:
+            for skill, amount in jSkill.items():
+                if self.__skills.get(skill, 0) > jSkill.get(skill, 0):
+                    self.__skills[skill] -= jSkill.get(skill, 0)
                 else:
-                    self.__skills.pop(skill)
+                    self.__skills.pop(skill, None)
             self.__jewels.remove(jewel)
             self.__freeSlots += jewel.slots()
             return True
