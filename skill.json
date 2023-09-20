@@ -1,0 +1,29 @@
+{
+  "Attack": {
+    "Description": "Increases or Decreases the hunter's attack power.",
+    "Level": [
+      20,
+      15,
+      10,
+      -10,
+      -15,
+      -20
+    ],
+    "ActiveNames": [
+      "Attack Up (Large)",
+      "Attack Up (Medium)",
+      "Attack Up (Small)",
+      "Attack Down (Small)",
+      "Attack Down (Medium)",
+      "Attack Down (Large)"
+    ],
+    "SubDescriptions": [
+      "Increases attack power by a multiplier of 20",
+      "Increases attack power by a multiplier of 15",
+      "Increases attack power by a multiplier of 10",
+      "Decreases attack power by a multiplier of 10",
+      "Decreases attack power by a multiplier of 15",
+      "Decreases attack power by a multiplier of 20"
+    ]
+  }
+}
