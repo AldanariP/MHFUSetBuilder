@@ -8,29 +8,25 @@ from collections import defaultdict
 
 class ArmorPiece:
 
-    def __init__(self, name, data):
-        try:
-            piece = data[name]
-            self.__name = piece['name']
-            self.__rarity = Rarity(piece['rarity']).rarity()
-            self.__part = Part(piece['part'])
-            self.__armor_class = ArmorClass(piece['class'])
-            self.__gender = Gender(piece['gender'])
-            self.__defense = piece['defense']
-            self.__fireRes = piece['fireRes']
-            self.__waterRes = piece['waterRes']
-            self.__thunderRes = piece['thunderRes']
-            self.__iceRes = piece['iceRes']
-            self.__dragonRes = piece['dragonRes']
-            self.__nbSlots = piece['nbSlots']
-            self.__freeSlots = self.__nbSlots
-            self.__jewels = []
-            self.__skills = defaultdict(int)
-            self.__skills.update(piece['skills'])
-            self.__cost = piece['cost']
-            self.__materials = piece['materials']
-        except KeyError as _:
-            print(f"Error: '{name}' is not a valid armor piece name.")
+    def __init__(self, data):
+        self.__name = data['name']
+        self.__rarity = Rarity(data['rarity']).rarity()
+        self.__part = Part(data['part'])
+        self.__armor_class = ArmorClass(data['class'])
+        self.__gender = Gender(data['gender'])
+        self.__defense = data['defense']
+        self.__fireRes = data['fireRes']
+        self.__waterRes = data['waterRes']
+        self.__thunderRes = data['thunderRes']
+        self.__iceRes = data['iceRes']
+        self.__dragonRes = data['dragonRes']
+        self.__nbSlots = data['nbSlots']
+        self.__freeSlots = self.__nbSlots
+        self.__jewels = []
+        self.__skills = defaultdict(int)
+        self.__skills.update(data['skills'])
+        self.__cost = data['cost']
+        self.__materials = data['materials']
 
     def name(self) -> str:
         return self.__name

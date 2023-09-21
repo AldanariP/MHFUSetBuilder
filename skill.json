@@ -1,7 +1,8 @@
 {
   "Attack": {
+    "Name": "Attack",
     "Description": "Increases or Decreases the hunter's attack power.",
-    "Level": [
+    "Levels": [
       20,
       15,
       10,

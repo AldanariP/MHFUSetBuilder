@@ -1,15 +1,11 @@
 class Jewel:
 
-    def __init__(self, name, data):
-        try:
-            dataJewel = data[name]
-            self.__name = dataJewel["name"]
-            self.__skills = dataJewel["skill"]
-            self.__material = dataJewel["material"]
-            self.__slots = dataJewel["slot"]
-            self.__cost = dataJewel["cost"]
-        except KeyError as e:
-            print(f"Error: '{name}' is not a valid Jewel name.")
+    def __init__(self, data):
+        self.__name = data["name"]
+        self.__skills = data["skill"]
+        self.__material = data["material"]
+        self.__slots = data["slot"]
+        self.__cost = data["cost"]
 
     def name(self) -> str:
         return self.__name
