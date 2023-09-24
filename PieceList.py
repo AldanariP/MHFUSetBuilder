@@ -1,6 +1,4 @@
 import json
-from ArmorClass import ArmorClass
-import ArmorPiece
 
 
 class PieceList:

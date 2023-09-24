@@ -24,7 +24,7 @@ class DataLoader:
         with open("skill.json", 'r') as file:
             data = load(file)
         for skill_name, skill_data in data.items():
-            self.__jewelData[skill_name] = Skill(skill_data)
+            self.__skillData[skill_name] = Skill(skill_data)
 
     def getArmorData(self, name) -> ArmorPiece:
         return self.__armorData[name]

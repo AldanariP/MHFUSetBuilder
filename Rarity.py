@@ -5,7 +5,5 @@ class Rarity:
         elif rarity > 9:
             raise ValueError(f"The Rarity must be at most 9, got : '{rarity}'")
         else:
-            self.__rarity = rarity
+            self.rarity = rarity
 
-    def rarity(self) -> int:
-        return self.__rarity

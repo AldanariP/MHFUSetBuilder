@@ -10,21 +10,163 @@
       -15,
       -20
     ],
-    "ActiveNames": [
-      "Attack Up (Large)",
-      "Attack Up (Medium)",
-      "Attack Up (Small)",
-      "Attack Down (Small)",
-      "Attack Down (Medium)",
-      "Attack Down (Large)"
+    "ActiveNames": {
+      "20": "Attack Up (Large)",
+      "15": "Attack Up (Medium)",
+      "10": "Attack Up (Small)",
+      "-10": "Attack Down (Small)",
+      "-15": "Attack Down (Medium)",
+      "-20": "Attack Down (Large)"
+    },
+
+    "SubDescriptions": {
+      "20": "Increases attack power by a multiplier of 20",
+      "15": "Increases attack power by a multiplier of 15",
+      "10": "Increases attack power by a multiplier of 10",
+      "-10": "Decreases attack power by a multiplier of 10",
+      "-15": "Decreases attack power by a multiplier of 15",
+      "-20": "Decreases attack power by a multiplier of 20"
+    }
+  },
+
+  "Cold Res": {
+    "Name": "Cold Res",
+    "Description": "Effects the rate in which the hunter's stamina decreases.",
+    "Levels": [
+      15,
+      10,
+      -10
     ],
-    "SubDescriptions": [
-      "Increases attack power by a multiplier of 20",
-      "Increases attack power by a multiplier of 15",
-      "Increases attack power by a multiplier of 10",
-      "Decreases attack power by a multiplier of 10",
-      "Decreases attack power by a multiplier of 15",
-      "Decreases attack power by a multiplier of 20"
-    ]
+    "ActiveNames": {
+      "15": "Cold Elim[Hi]",
+      "10": "Cold Elim[Lo]",
+      "-10": "Cold Inc[Lo]"
+    },
+
+    "SubDescriptions": {
+      "15": "Immunity to Cold anyplace.",
+      "10": "Immunity to Cold at specific areas.",
+      "-10": "Stamina bar decreases x1.5 faster."
+    }
+  },
+
+  "Protection": {
+    "Name": "Protection",
+    "Description": "Affects the chance of preventing or receiving extra damage.",
+    "Levels": [
+      10,
+      -10
+    ],
+    "ActiveNames": {
+      "10": "Divine Protection",
+      "-10": "Demonic Protection"
+    },
+
+    "SubDescriptions": {
+      "10": "25% chance of receiving 30% more damage from an attack.",
+      "-10": "25% chance of receiving 30% less damage from an attack."
+    }
+  },
+
+  "Ice Res": {
+    "Name": "Ice Res",
+    "Description": "Increases or Decreases the hunter's resistance to ice-based elemental damage.",
+    "Levels": [
+      15,
+      10,
+      -10,
+      -15
+    ],
+    "ActiveNames": {
+      "15": "Ice Res +10",
+      "10": "Ice Res +5",
+      "-10": "Ice Res -5",
+      "-15": "Ice Res +-10"
+    },
+
+    "SubDescriptions": {
+      "15": "Ice Resistance +10",
+      "10": "Ice Resistance +5",
+      "-10": "Ice Resistance -5",
+      "-15": "Ice Resistance -10"
+    }
+  },
+
+  "Torso Inc.": {
+    "Name": "Torso Inc.",
+    "Description": "Gives the same amount of skill points as the Torso piece \n\n(NOTE: If a plate has +2 points of a skill, one Torso Inc will increase the value to +4. A second Torso Inc. armor piece will increase the value by +2, bringing the total to +6. It won't double the value to get +8 points)",
+    "Levels": [
+      1, 2, 3, 4
+    ],
+    "ActiveNames": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": ""
+
+    },
+    "SubDescriptions": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": ""
+    }
+  },
+
+  "PsychicVis": {
+    "Name": "PsychicVis",
+    "Description": "Affects your ability to keep track of the monster.",
+    "Levels": [
+      15,
+      10
+    ],
+    "ActiveNames": {
+      "15": "Autotracker",
+      "10": "Detect"
+    },
+
+    "SubDescriptions": {
+      "15": "Shows on your map a constant indication of where a large monster is, i.e. a dragon/wyvern has a mini dragon/bird picture, a \"drome\" and Kirin is just a blob, carapaceons (hermitaur & ceanataur) are a crab, certain pelagus (congalala & blangonga) are shown as a monkey etc. This also shows how active a certain monster is, i.e. blue is calm, red is angry or the monster has noticed you, grey is dead.",
+      "10": "Gives detailed information on painted monster (blue when calm, red when angry. You still have to paint it yourself)."
+    }
+  },
+
+  "Map": {
+    "Name": "Map",
+    "Description": "The skill makes it so that you automatically see the map of the place you're in without having a map in your inventory.",
+    "Levels": [
+      10,
+      -10
+    ],
+    "ActiveNames": {
+      "10": "FarSight",
+      "-10": "No Map"
+    },
+
+    "SubDescriptions": {
+      "15": "Allows you to see the entire map without the map item.",
+      "10": "No map shown even with the map item."
+    }
+  },
+
+  "Heat Res": {
+    "Name": "Heat Res",
+    "Description": "Effects the rate in which the hunter's stamina decreases.",
+    "Levels": [
+      15,
+      10,
+      -10
+    ],
+    "ActiveNames": {
+      "15": "Cancel[Hi]",
+      "10": "Cancel[Lo]",
+      "-10": "Heat Inc[Lo]"
+    },
+
+    "SubDescriptions": {
+      "15": "Immunity to Heat anyplace.",
+      "10": "Immunity to Heat at specific areas.",
+      "-10": "Health bar decreases x1.5 faster."
+    }
   }
 }

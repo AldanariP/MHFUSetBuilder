@@ -1,200 +1,198 @@
-from ArmorPiece import *
+from ArmorClass import ArmorClass
+from ArmorPiece import ArmorPiece
+from Jewel import Jewel
 from Parts import *
 from Gender import *
 from typing import Optional
 from collections import Counter, defaultdict
 
+from Skill import Skill
+
 
 def genderWaring(armorPiece, armorSet):
-    return (f"ArmorPiece '{armorPiece.name()}' of gender '{armorPiece.gender().value}' "
-            f"is not compatible with the set gender '{armorSet.setGender()}'")
+    return (f"ArmorPiece '{armorPiece.name}' of gender '{armorPiece.gender.value}' "
+            f"is not compatible with the set gender '{armorSet.setGender}'")
 
 
 def classWaring(armorPiece, armorSet):
-    return (f"ArmorPiece '{armorPiece.name()}' class '{armorPiece.part().value}' "
-            f"is not compatible with the set class : '{armorSet.setClass()}'")
+    return (f"ArmorPiece '{armorPiece.name}' class '{armorPiece.part.value}' "
+            f"is not compatible with the set class : '{armorSet.setClass}'")
 
 
 class ArmorSet:
     def __init__(self):
-        self.__armorSet = {"Head": Optional[ArmorPiece],
-                           "Torso": Optional[ArmorPiece],
-                           "Arm": Optional[ArmorPiece],
-                           "Waist": Optional[ArmorPiece],
-                           "Leg": Optional[ArmorPiece]}
-        self.__setClass = None
-        self.__setGender = None
-        self.__WeaponSlot = 0
-        self.__FreeWeaponSlot = 0
-        self.__WeaponSkill = {}
-        self.__weaponJewels = []
+        self.armorSet: dict[str, ArmorPiece] = {"Head": Optional[ArmorPiece],
+                                                "Torso": Optional[ArmorPiece],
+                                                "Arm": Optional[ArmorPiece],
+                                                "Waist": Optional[ArmorPiece],
+                                                "Leg": Optional[ArmorPiece]}
+        self.setClass: ArmorClass = Optional[ArmorClass]
+        self.setGender: Gender = Optional[Gender]
+        self.weaponSlot: int = 0
+        self.freeWeaponSlot: int = 0
+        self.weaponSkill: dict[str, int] = {}
+        self.weaponJewels: list[Jewel] = []
 
     def pieces(self):
-        return self.__armorSet
+        return self.armorSet
 
     def setHead(self, headPiece: ArmorPiece):
-        if headPiece.part() != Part.HEAD:
-            raise ValueError(f"ArmorPiece '{headPiece.name()}' is not a Head Piece")
+        if headPiece.part != Part.HEAD:
+            raise ValueError(f"ArmorPiece '{headPiece.name}' is not a Head Piece")
 
-        elif self.__setGender is not None and (
-                headPiece.gender() != self.__setGender or headPiece.gender() != Gender.BOTH):
+        elif self.setGender is not Optional[Gender] and (
+                headPiece.gender != self.setGender or headPiece.gender != Gender.BOTH):
             raise ValueError(genderWaring(headPiece, self))
 
         else:
-            self.__setGender = headPiece.gender()
-            self.__armorSet["Head"] = headPiece
+            self.setGender = headPiece.gender
+            self.armorSet["Head"] = headPiece
 
     def setTorso(self, torsoPiece: ArmorPiece):
-        if torsoPiece.part() != Part.TORSO:
-            raise ValueError(f"ArmorPiece '{torsoPiece.name()}' is not a Torso Piece")
+        if torsoPiece.part != Part.TORSO:
+            raise ValueError(f"ArmorPiece '{torsoPiece.name}' is not a Torso Piece")
 
-        elif self.__setClass is not None and torsoPiece.armor_class() != self.__setClass:
+        elif self.setClass is not Optional[ArmorClass] and torsoPiece.armorClass != self.setClass:
             raise ValueError(classWaring(torsoPiece, self))
 
-        elif self.__setGender is not None and (
-                torsoPiece.gender() != self.__setGender or torsoPiece.gender() != Gender.BOTH):
+        elif self.setGender is not Optional[Gender] and (
+                torsoPiece.gender != self.setGender or torsoPiece.gender != Gender.BOTH):
             raise ValueError(genderWaring(torsoPiece, self))
 
         else:
-            self.__setClass = torsoPiece.armor_class()
-            self.__setGender = torsoPiece.gender()
-            self.__armorSet["Torso"] = torsoPiece
+            self.setClass = torsoPiece.armorClass
+            self.setGender = torsoPiece.gender
+            self.armorSet["Torso"] = torsoPiece
 
     def setArm(self, armPiece: ArmorPiece):
-        if armPiece.part() != Part.ARM:
-            raise ValueError(f"ArmorPiece '{armPiece.name()}' is not an Arm Piece")
+        if armPiece.part != Part.ARM:
+            raise ValueError(f"ArmorPiece '{armPiece.name}' is not an Arm Piece")
 
-        elif self.__setClass is not None and armPiece.armor_class() != self.__setClass:
+        elif self.setClass is not Optional[ArmorClass] and armPiece.armorClass != self.setClass:
             raise ValueError(classWaring(armPiece, self))
 
-        elif self.__setGender is not None and (
-                armPiece.gender() != self.__setGender or armPiece.gender() != Gender.BOTH):
+        elif self.setGender is not Optional[Gender] and (
+                armPiece.gender != self.setGender or armPiece.gender != Gender.BOTH):
             raise ValueError(genderWaring(armPiece, self))
 
         else:
-            self.__setClass = armPiece.armor_class()
-            self.__setGender = armPiece.gender()
-            self.__armorSet["Arm"] = armPiece
+            self.setClass = armPiece.armorClass
+            self.setGender = armPiece.gender
+            self.armorSet["Arm"] = armPiece
 
     def setWaist(self, waistPiece: ArmorPiece):
-        if waistPiece.part() != Part.WAIST:
-            raise ValueError(f"ArmorPiece '{waistPiece.name()}' is not a Waist Piece")
+        if waistPiece.part != Part.WAIST:
+            raise ValueError(f"ArmorPiece '{waistPiece.name}' is not a Waist Piece")
 
-        elif self.__setClass is not None and waistPiece.armor_class() != self.__setClass:
+        elif self.setClass is not Optional[ArmorClass] and waistPiece.armorClass != self.setClass:
             raise ValueError(classWaring(waistPiece, self))
 
-        elif self.__setGender is not None and (
-                waistPiece.gender() != self.__setGender or waistPiece.gender() != Gender.BOTH):
+        elif self.setGender is not Optional[Gender] and (
+                waistPiece.gender != self.setGender or waistPiece.gender != Gender.BOTH):
             raise ValueError(genderWaring(waistPiece, self))
 
         else:
-            self.__setClass = waistPiece.armor_class()
-            self.__setGender = waistPiece.gender()
-            self.__armorSet["Waist"] = waistPiece
+            self.setClass = waistPiece.armorClass
+            self.setGender = waistPiece.gender
+            self.armorSet["Waist"] = waistPiece
 
     def setLeg(self, legPiece: ArmorPiece):
-        if legPiece.part() != Part.LEG:
-            raise ValueError(f"ArmorPiece '{legPiece.name()}' is not a Leg Piece")
+        if legPiece.part != Part.LEG:
+            raise ValueError(f"ArmorPiece '{legPiece.name}' is not a Leg Piece")
 
-        elif self.__setClass is not None and legPiece.armor_class() != self.__setClass:
+        elif self.setClass is not Optional[ArmorClass] and legPiece.armorClass != self.setClass:
             raise ValueError(classWaring(legPiece, self))
 
-        elif self.__setGender is not None and (
-                legPiece.gender() != self.__setGender or legPiece.gender() != Gender.BOTH):
+        elif self.setGender is not Optional[Gender] and (
+                legPiece.gender != self.setGender or legPiece.gender != Gender.BOTH):
             raise ValueError(genderWaring(legPiece, self))
 
         else:
-            self.__setClass = legPiece.armor_class()
-            self.__setGender = legPiece.gender()
-            self.__armorSet["Leg"] = legPiece
+            self.setClass = legPiece.armorClass
+            self.setGender = legPiece.gender
+            self.armorSet["Leg"] = legPiece
 
     def setAllPieces(self, ArmorPieceList: list[ArmorPiece]):
-        if Counter(i.armor_class() for i in ArmorPieceList) != \
+        if Counter(i.armorClass for i in ArmorPieceList) != \
                 {Part.HEAD: 1, Part.TORSO: 1, Part.ARM: 1, Part.WAIST: 1, Part.LEG: 1}:
             raise ValueError("Armor Piece list provided is not valid")
 
         for i in ArmorPieceList:
-            if i.armor_class() == Part.HEAD:
+            if i.armorClass == Part.HEAD:
                 self.setHead(i)
-            if i.armor_class() == Part.TORSO:
+            if i.armorClass == Part.TORSO:
                 self.setTorso(i)
-            if i.armor_class() == Part.ARM:
+            if i.armorClass == Part.ARM:
                 self.setArm(i)
-            if i.armor_class() == Part.WAIST:
+            if i.armorClass == Part.WAIST:
                 self.setWaist(i)
-            if i.armor_class() == Part.LEG:
+            if i.armorClass == Part.LEG:
                 self.setLeg(i)
 
     def setWeaponSlot(self, amount: int):
-        self.__WeaponSlot, self.__FreeWeaponSlot = amount, amount
+        self.weaponSlot, self.freeWeaponSlot = amount, amount
 
     def attachJeweltoWeapon(self, jewel: Jewel) -> bool:
-        if jewel.slots() <= self.__FreeWeaponSlot:
-            for skill, amount in jewel.skills().items():
-                if skill in self.__WeaponSkill.keys():
-                    self.__WeaponSkill[skill] += amount
+        if jewel.slots <= self.freeWeaponSlot:
+            for skill, amount in jewel.skills.items():
+                if skill in self.weaponSkill.keys():
+                    self.weaponSkill[skill] += amount
                 else:
-                    self.__WeaponSkill[skill] = amount
-            self.__weaponJewels.append(jewel)
-            self.__FreeWeaponSlot -= jewel.slots()
+                    self.weaponSkill[skill] = amount
+            self.weaponJewels.append(jewel)
+            self.freeWeaponSlot -= jewel.slots
             return True
         else:
             return False
 
     def detachJeweltoWeapon(self, jewel: Jewel) -> bool:
-        if jewel.name() in self.__weaponJewels:
-            for skill, amount in jewel.skills().items():
-                if self.__WeaponSkill[skill] > jewel.skills()[skill]:
-                    self.__WeaponSkill[skill] -= jewel.skills()[skill]
+        if jewel.name in self.weaponJewels:
+            for skill, amount in jewel.skills.items():
+                if self.weaponSkill[skill] > jewel.skills[skill]:
+                    self.weaponSkill[skill] -= jewel.skills[skill]
                 else:
-                    self.__WeaponSkill.pop(skill)
-            self.__weaponJewels.remove(jewel)
-            self.__WeaponSlot += jewel.slots()
+                    self.weaponSkill.pop(skill)
+            self.weaponJewels.remove(jewel)
+            self.weaponSlot += jewel.slots
             return True
         else:
             return False
 
     def resetHead(self):
-        self.__armorSet["Head"] = Optional[ArmorPiece]
+        self.armorSet["Head"] = Optional[ArmorPiece]
 
     def resetTorso(self):
-        self.__armorSet["Torso"] = Optional[ArmorPiece]
+        self.armorSet["Torso"] = Optional[ArmorPiece]
 
     def resetArm(self):
-        self.__armorSet["Arm"] = Optional[ArmorPiece]
+        self.armorSet["Arm"] = Optional[ArmorPiece]
 
     def resetWaist(self):
-        self.__armorSet["Waist"] = Optional[ArmorPiece]
+        self.armorSet["Waist"] = Optional[ArmorPiece]
 
     def resetleg(self):
-        self.__armorSet["leg"] = Optional[ArmorPiece]
+        self.armorSet["leg"] = Optional[ArmorPiece]
 
-    def setClass(self):
-        return self.__setClass
-
-    def setGender(self):
-        return self.__setGender
+    def skills(self) -> list[str]:
+        return list(self.skillTableTotal().keys())
 
     def skillTableTotal(self) -> dict[str, int]:
         skillList = defaultdict(int)
-        for armorPiece in self.__armorSet.values():
-            for skill, amount in armorPiece.skills().items():
+        for armorPiece in self.armorSet.values():
+            for skill, amount in armorPiece.skills.items():
                 if skill == "Torso Inc.":
-                    for torsoskill, torsoamount in self.__armorSet["Torso"].skills().items():
+                    for torsoskill, torsoamount in self.armorSet["Torso"].skills.items():
                         skillList[torsoskill] += torsoamount
                 skillList[skill] += amount
         return dict(sorted(skillList.items(), key=lambda x: x[1], reverse=True))
 
-    def skilltable(self) -> list:
-        skillTable = [("Skill", "Actif", "Head", "Torso", "Arm", "Waist", "Leg", "Total")]
+    def skilltable(self, skillData: list[Skill]) -> list[tuple]:
+        skillTable = [("Skill", "Active", "Head", "Torso", "Arm", "Waist", "Leg", "Total")]
         skillTotal = self.skillTableTotal()
-        activeSkill = []  # TODO create a list of all the active skills IN ORDER with the Talent object (isActif func)
+        activeSkill = {skill.name: skill.getActiveNameFromLevel(skillTotal[skill.name]) for skill in skillData if skill.isActive(skillTotal[skill.name])}
         for skill in skillTotal.keys():
-            if activeSkill:
-                row = (skill, activeSkill.pop(0),)
-            else:
-                row = (skill, '',)
-            for armorPiece in self.__armorSet.values():
+            row = (skill, activeSkill.get(skill, ""),)
+            for armorPiece in self.armorSet.values():
                 if armorPiece is None or armorPiece.getSkillAmount(skill) is None:
                     row += ('',)
                 else:
@@ -213,25 +211,25 @@ class ArmorSet:
                    "thunder": 0,
                    "ice": 0,
                    "dragon": 0}
-        for armorPiece in self.__armorSet.values():
-            resList["def"] += armorPiece.defense()
-            resList["fire"] += armorPiece.fireRes()
-            resList["water"] += armorPiece.waterRes()
-            resList["thunder"] += armorPiece.thunderRes()
-            resList["ice"] += armorPiece.iceRes()
-            resList["dragon"] += armorPiece.dragonRes()
+        for armorPiece in self.armorSet.values():
+            resList["def"] += armorPiece.defense
+            resList["fire"] += armorPiece.fireRes
+            resList["water"] += armorPiece.waterRes
+            resList["thunder"] += armorPiece.thunderRes
+            resList["ice"] += armorPiece.iceRes
+            resList["dragon"] += armorPiece.dragonRes
         return resList
 
     def totalCost(self) -> int:
         cost = 0
-        for armorPiece in self.__armorSet.values():
-            cost += armorPiece.cost()
+        for armorPiece in self.armorSet.values():
+            cost += armorPiece.cost
         return cost
 
     def materialList(self) -> dict[str, int]:
         materials = {}
-        for armorPiece in self.__armorSet.values():
-            for material, amount in armorPiece.materials().items():
+        for armorPiece in self.armorSet.values():
+            for material, amount in armorPiece.materials.items():
                 if material in materials.keys():
                     materials[material] += amount
                 else:

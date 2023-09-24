@@ -1,5 +1,8 @@
 import customtkinter
 
+from ArmorSet import ArmorSet
+from DataLoader import DataLoader
+
 
 class AppTabView(customtkinter.CTkTabview):
     def __init__(self, master, **kwargs):
@@ -29,6 +32,7 @@ class OverviewMainFrame(customtkinter.CTkFrame):
 
 class SkillTable:
     def __init__(self, root, data):
+        dataLoader = DataLoader()
         skillMaxLenght = max([len(j) for j in [i[0] for i in data]])
         active_Skill_Max_Lenght = max([len(j) for j in [i[1] for i in data]])
 

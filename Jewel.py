@@ -1,23 +1,33 @@
 class Jewel:
 
     def __init__(self, data):
-        self.__name = data["name"]
-        self.__skills = data["skill"]
-        self.__material = data["material"]
-        self.__slots = data["slot"]
-        self.__cost = data["cost"]
+        self.name = data["name"]
+        self.skills = data["skill"]
+        self.material = data["material"]
+        self.slots = data["slot"]
+        self.cost = data["cost"]
 
-    def name(self) -> str:
-        return self.__name
+    def __str__(self):
+        result = (
+            f"Name     : {self.name}\n"
+            f"nbSlots  : {self.slots}\n"
+            f"Cost     : {self.cost}z\n"
+            f"Skills   : \n"
+        )
+        max_key_width = max(len(i) for i in self.skills.keys())
 
-    def skills(self) -> dict[str, int]:
-        return self.__skills
+        for skill, value in self.skills.items():
+            key = f"{skill}".ljust(max_key_width)
+            if value >= 0:
+                result += f"    {key} :  {value}\n"
+            else:
+                result += f"    {key} : {value}\n"
 
-    def materials(self) -> dict[str, int]:
-        return self.__material
+        max_key_width = max(len(i) for i in self.material.keys())
 
-    def slots(self) -> int:
-        return self.__slots
+        result += f"Material :\n"
+        for material, value in self.material.items():
+            key = f"{material}".ljust(max_key_width)
+            result += f"    {key} : {value}\n"
 
-    def cost(self) -> int:
-        return self.__cost
+        return result
