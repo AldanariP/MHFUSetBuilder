@@ -9,12 +9,12 @@ from collections import Counter, defaultdict
 from Skill import Skill
 
 
-def genderWaring(armorPiece, armorSet):
+def genderWaring(armorPiece: ArmorPiece, armorSet):
     return (f"ArmorPiece '{armorPiece.name}' of gender '{armorPiece.gender.value}' "
             f"is not compatible with the set gender '{armorSet.setGender}'")
 
 
-def classWaring(armorPiece, armorSet):
+def classWaring(armorPiece: ArmorPiece, armorSet):
     return (f"ArmorPiece '{armorPiece.name}' class '{armorPiece.part.value}' "
             f"is not compatible with the set class : '{armorSet.setClass}'")
 
@@ -32,9 +32,6 @@ class ArmorSet:
         self.freeWeaponSlot: int = 0
         self.weaponSkill: dict[str, int] = {}
         self.weaponJewels: list[Jewel] = []
-
-    def pieces(self):
-        return self.armorSet
 
     def setHead(self, headPiece: ArmorPiece):
         if headPiece.part != Part.HEAD:
@@ -189,7 +186,8 @@ class ArmorSet:
     def skilltable(self, skillData: list[Skill]) -> list[tuple]:
         skillTable = [("Skill", "Active", "Head", "Torso", "Arm", "Waist", "Leg", "Total")]
         skillTotal = self.skillTableTotal()
-        activeSkill = {skill.name: skill.getActiveNameFromLevel(skillTotal[skill.name]) for skill in skillData if skill.isActive(skillTotal[skill.name])}
+        activeSkill = {skill.name: skill.getActiveNameFromLevel(skillTotal[skill.name]) for skill in skillData if
+                       skill.isActive(skillTotal[skill.name])}
         for skill in skillTotal.keys():
             row = (skill, activeSkill.get(skill, ""),)
             for armorPiece in self.armorSet.values():
